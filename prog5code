@@ -1,0 +1,50 @@
+*** SGD(Stochastic Gradient Descent) ***
+
+import numpy as np
+
+def gradient_descent(gradient,start,learning_rate,n_iter=50,tolerance=1e-06):
+    vector = start
+    for _ in range(n_iter):
+        diff = -learning_rate*gradient(vector)
+        if np.all(np.abs(diff) <= tolerance):
+            break
+        vector +=diff
+    return vector
+
+gradient_descent(gradient=lambda v: 2*v,start=10.0,learning_rate=0.2)
+
+
+
+
+
+*** ADAM OPTIMIZER ***
+
+# ADAM OPTIMIZER
+import tensorflow as tf 
+from sklearn.datasets import load_iris
+
+#Load the Iris dataset
+iris = load_iris()
+X = iris.data # Features 
+y = iris.target # Target Labels
+
+#One-hot encode target Labels (assuming multi-class classification) 
+y = tf.keras.utils.to_categorical(y, num_classes=3) #3 Iris species
+
+#Define the model (simple with one hidden Layer)
+model = tf.keras. Sequential([
+    tf.keras.layers.Dense(10, activation='relu', input_shape=(4,)), # Input Layer (4 features)
+    tf.keras.layers.Dense(3, activation='softmax')  #Output Layer (3 classes)
+])
+
+#Compile the model with SGD optimizer
+model.compile(optimizer=tf.keras.optimizers.SGD (learning_rate=0.01),
+              loss ='categorical_crossentropy',
+              metrics=['accuracy'])
+
+#Train the model
+model.fit(X, y, epochs=100, batch_size=32)
+
+#Evaluate the model
+loss, accuracy = model.evaluate(X, y)
+print("Test accuracy:", accuracy)
