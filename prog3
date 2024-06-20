@@ -1,0 +1,55 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# User-defined activation functions
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def tanh(x):
+    return np.tanh(x)
+
+def relu(x):
+    return np.maximum(0, x)
+
+# Input values
+x = np.linspace(-5, 5, 100) #cretes sequence with specified intervals
+
+# Using user-defined activation functions
+sigmoid_values = sigmoid(x)
+tanh_values = tanh(x)
+relu_values = relu(x)
+
+# Using built-in activation functions
+sigmoid_builtin = 1 / (1 + np.exp(-x))
+tanh_builtin = np.tanh(x)
+relu_builtin = np.maximum(0, x)
+
+# Plotting the graphs
+plt.figure(figsize=(12, 6))
+
+plt.subplot(2, 3, 1)
+plt.plot(x, sigmoid_values, label='Sigmoid')
+plt.title('Sigmoid (User-defined)')
+
+plt.subplot(2, 3, 2)
+plt.plot(x, tanh_values, label='Tanh')
+plt.title('Tanh (User-defined)')
+
+plt.subplot(2, 3, 3)
+plt.plot(x, relu_values, label='ReLU')
+plt.title('ReLU (User-defined)')
+
+plt.subplot(2, 3, 4)
+plt.plot(x, sigmoid_builtin, label='Sigmoid')
+plt.title('Sigmoid (Built-in)')
+
+plt.subplot(2, 3, 5)
+plt.plot(x, tanh_builtin, label='Tanh')
+plt.title('Tanh (Built-in)')
+
+plt.subplot(2, 3, 6)
+plt.plot(x, relu_builtin, label='ReLU')
+plt.title('ReLU (Built-in)')
+
+plt.tight_layout()
+plt.show()
